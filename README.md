@@ -4,7 +4,7 @@ Deployment script untuk Rock application (frontend & backend).
 
 ## Cara Penggunaan
 
-### Basic Deployment
+### Full Deployment (Build + FTP Upload)
 ```bash
 cd rockdeploy
 npm run deploy
@@ -29,7 +29,15 @@ Script ini akan menjalankan proses berikut:
 
 3. **Summary**
    - Menampilkan informasi file build dan ukuran
-   - Siap untuk upload ke server
+
+4. **FTP Upload**
+   - Upload backend build ke `remotePathBackend` (sesuai config di server.json)
+   - Upload frontend build ke `remotePathFrontend` (sesuai config di server.json)
+   - Progress upload ditampilkan dengan detail
+
+5. **Final Summary**
+   - Konfirmasi semua file berhasil diupload
+   - Informasi lokasi upload di server
 
 ## Struktur Folder
 
@@ -45,11 +53,28 @@ rockdeploy/
 └── README.md           # Dokumentasi
 ```
 
+## Konfigurasi Server
+
+Buat file `server.json` berdasarkan `server-example.json`:
+
+```json
+{
+  "host": "your-domain.com",
+  "protocol": "ftp",
+  "port": 21,
+  "username": "ftp-username",
+  "password": "ftp-password",
+  "remotePathFrontend": "domains/your-domain.com/public_html",
+  "remotePathBackend": "domains/your-domain.com/laravel"
+}
+```
+
 ## Requirements
 
 - Node.js dan NPM terinstall
 - Akses ke folder rockdash dan rockapi
 - Script build di kedua project sudah tersedia
+- Konfigurasi FTP di `server.json`
 
 ## Error Handling
 
@@ -57,3 +82,14 @@ Script akan berhenti dan menampilkan error jika:
 - Build process gagal
 - File zip tidak ditemukan setelah build
 - Proses copy file gagal
+- `server.json` tidak ditemukan atau tidak valid
+- Koneksi FTP gagal
+- Upload file gagal
+
+## Fitur Tambahan
+
+- **Progress indicators**: Menampilkan progress untuk setiap step
+- **File size tracking**: Menampilkan ukuran file build
+- **Error handling**: Detail error message untuk troubleshooting
+- **Colored output**: Output berwarna untuk kemudahan membaca
+- **Automatic retry**: FTP upload dengan error handling
