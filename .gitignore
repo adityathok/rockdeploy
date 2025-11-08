@@ -1,0 +1,8 @@
+/node_modules
+server.json
+/.fleet
+/.idea
+/.nova
+/.vscode
+/.zed
+/dist

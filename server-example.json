@@ -1,0 +1,9 @@
+{
+  "host": "domain.net",
+  "protocol": "ftp",
+  "port": 21,
+  "username": "***",
+  "password": "***",
+  "remotePathFrontend": "domains/domain.net/public_html",
+  "remotePathBackend": "domains/domain.net/laravel"
+}
