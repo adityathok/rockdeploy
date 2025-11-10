@@ -5,6 +5,7 @@
   "main": "deploy.js",
   "scripts": {
     "deploy": "node deploy.js",
+    "deploy:frontend": "node deploy-frontend.js",
     "deploy:clean": "rimraf dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
