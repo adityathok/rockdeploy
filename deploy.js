@@ -23,9 +23,19 @@ function log(message, color = 'reset') {
   console.log(`${colors[color]}${message}${colors.reset}`);
 }
 
+let stepStartTime = {};
+
 function logStep(step, message) {
+  stepStartTime[step] = Date.now();
   log(`\n[STEP ${step}] ${message}`, 'cyan');
   log('='.repeat(50), 'cyan');
+}
+
+function logStepComplete(step, message) {
+  const duration = stepStartTime[step] ? ((Date.now() - stepStartTime[step]) / 1000).toFixed(2) : '0.00';
+  log(`\n[STEP ${step}] ${message}`, 'green');
+  log(`⏱️  Duration: ${duration} seconds`, 'yellow');
+  log('='.repeat(50), 'green');
 }
 
 function logSuccess(message) {
@@ -143,6 +153,8 @@ async function main() {
     // Copy frontend zip
     copyFile(frontendZipPath, frontendDestPath);
 
+    logStepComplete(1, 'Frontend build completed');
+
     // Step 2: Build Backend
     logStep(2, 'Building Backend (rockapi)');
 
@@ -158,6 +170,8 @@ async function main() {
 
     // Copy backend zip
     copyFile(backendZipPath, backendDestPath);
+
+    logStepComplete(2, 'Backend build completed');
 
     // Step 3: Summary
     logStep(3, 'Deployment Summary');
@@ -175,6 +189,8 @@ async function main() {
     log('\n📊 Build Sizes:', 'yellow');
     log(`  Frontend: ${(frontendStats.size / 1024 / 1024).toFixed(2)} MB`, 'yellow');
     log(`  Backend: ${(backendStats.size / 1024 / 1024).toFixed(2)} MB`, 'yellow');
+
+    logStepComplete(3, 'Deployment summary completed');
 
     // Step 4: FTP Upload
     logStep(4, 'Uploading to FTP Server');
@@ -195,6 +211,8 @@ async function main() {
       'Frontend build'
     );
 
+    logStepComplete(4, 'FTP upload completed');
+
     // Step 5: Final Summary
     logStep(5, 'Deployment Complete');
 
@@ -203,6 +221,8 @@ async function main() {
     log(`📁 Backend: ${serverConfig.host} → ${serverConfig.remotePathBackend}`, 'green');
     log(`📁 Frontend: ${serverConfig.host} → ${serverConfig.remotePathFrontend}`, 'green');
     log('\n✨ Ready to go live!', 'green');
+
+    logStepComplete(5, 'Deployment process completed');
 
   } catch (error) {
     logError(`Deployment failed: ${error.message}`);
