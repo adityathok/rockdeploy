@@ -159,13 +159,19 @@ async function uploadToFtp(localPath, remotePath, serverConfig, description) {
       remoteRoot: remotePath,
       include: [path.basename(localPath)],
       deleteRemote: false,
-      forcePasv: true
+      forcePasv: true,
+      maxConnections: 1,      // 🔒 Hindari koneksi paralel
+      connTimeout: 60000,     // ⏱️ Timeout koneksi
+      pasvTimeout: 60000,     // ⏱️ Timeout mode pasif
     };
 
     const ftpDeploy = new FtpDeploy();
 
     await ftpDeploy.deploy(config);
     logSuccess(`${description} uploaded successfully to ${remotePath}`);
+    
+    // Tambahkan jeda sebelum lanjut ke HTTP trigger
+    await new Promise(resolve => setTimeout(resolve, 3000));
 
   } catch (error) {
     logError(`Failed to upload ${description}: ${error.message}`);
