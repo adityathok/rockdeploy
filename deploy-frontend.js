@@ -171,7 +171,7 @@ async function uploadToFtp(localPath, remotePath, serverConfig, description) {
     logSuccess(`${description} uploaded successfully to ${remotePath}`);
     
     // Tambahkan jeda sebelum lanjut ke HTTP trigger
-    await new Promise(resolve => setTimeout(resolve, 3000));
+    await new Promise(resolve => setTimeout(resolve, randInt(1000, 2000)));
 
   } catch (error) {
     logError(`Failed to upload ${description}: ${error.message}`);

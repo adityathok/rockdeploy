@@ -133,7 +133,7 @@ async function triggerRemoteDeployment(serverConfig) {
                 (today.getMonth() + 1).toString().padStart(2, '0') +
                 today.getFullYear().toString().slice(-2);
 
-    const deployUrl = `${serverConfig.appUrl}/deployer.php?key=${key}`;
+    const deployUrl = `${serverConfig.appUrl}/deployer.php?frontend=0&key=${key}`;
     log(`📡 Calling: ${deployUrl}`, 'blue');
 
     const response = await makeHttpRequest(deployUrl);
@@ -280,6 +280,9 @@ async function main() {
       'Backend build'
     );
 
+    // Tambahkan jeda sebelum upload frontend
+    await new Promise(resolve => setTimeout(resolve, randInt(1000, 2000)));
+
     // Upload Frontend
     await uploadToFtp(
       frontendDestPath,
@@ -304,7 +307,7 @@ async function main() {
     log('\n🎉 Deployment completed successfully!', 'green');
     log(`📁 Backend: ${serverConfig.host} → ${serverConfig.remotePathBackend}`, 'green');
     log(`📁 Frontend: ${serverConfig.host} → ${serverConfig.remotePathFrontend}`, 'green');
-    log(`🚀 Remote deployment: ${serverConfig.appUrl}/deployer.php`, 'green');
+    log(`🚀 Remote deployment: ${serverConfig.appUrl}/deployer.php?frontend=0`, 'green');
     log('\n✨ Ready to go live!', 'green');
 
     logStepComplete(6, 'Deployment process completed');
