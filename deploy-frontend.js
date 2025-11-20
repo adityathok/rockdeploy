@@ -246,25 +246,25 @@ async function main() {
 
     logStepComplete(2, 'Frontend deployment summary completed');
 
-    // Step 3: FTP Upload
-    logStep(3, 'Uploading Frontend to FTP Server');
+    // // Step 3: FTP Upload
+    // logStep(3, 'Uploading Frontend to FTP Server');
 
-    // Upload Frontend
-    await uploadToFtp(
-      frontendDestPath,
-      serverConfig.remotePathFrontend,
-      serverConfig,
-      'Frontend build'
-    );
+    // // Upload Frontend
+    // await uploadToFtp(
+    //   frontendDestPath,
+    //   serverConfig.remotePathFrontend,
+    //   serverConfig,
+    //   'Frontend build'
+    // );
 
-    logStepComplete(3, 'Frontend FTP upload completed');
+    // logStepComplete(3, 'Frontend FTP upload completed');
 
-    // Step 4: Trigger Remote Deployment
-    logStep(4, 'Triggering Remote Frontend Deployment');
+    // // Step 4: Trigger Remote Deployment
+    // logStep(4, 'Triggering Remote Frontend Deployment');
 
-    await triggerRemoteDeployment(serverConfig);
+    // await triggerRemoteDeployment(serverConfig);
 
-    logStepComplete(4, 'Remote frontend deployment triggered');
+    // logStepComplete(4, 'Remote frontend deployment triggered');
 
     // Step 5: Final Summary
     logStep(5, 'Frontend Deployment Complete');

@@ -269,36 +269,38 @@ async function main() {
 
     logStepComplete(3, 'Deployment summary completed');
 
-    // Step 4: FTP Upload
-    logStep(4, 'Uploading to FTP Server');
+  
+    // // Step 4: FTP Upload
+    // logStep(4, 'Uploading to FTP Server');
+    
 
-    // Upload Backend first
-    await uploadToFtp(
-      backendDestPath,
-      serverConfig.remotePathBackend,
-      serverConfig,
-      'Backend build'
-    );
+    // // Upload Backend first
+    // await uploadToFtp(
+    //   backendDestPath,
+    //   serverConfig.remotePathBackend,
+    //   serverConfig,
+    //   'Backend build'
+    // );
 
-    // Tambahkan jeda sebelum upload frontend
-    await new Promise(resolve => setTimeout(resolve, randInt(1000, 2000)));
+    // // Tambahkan jeda sebelum upload frontend
+    // await new Promise(resolve => setTimeout(resolve, randInt(1000, 2000)));
 
-    // Upload Frontend
-    await uploadToFtp(
-      frontendDestPath,
-      serverConfig.remotePathFrontend,
-      serverConfig,
-      'Frontend build'
-    );
+    // // Upload Frontend
+    // await uploadToFtp(
+    //   frontendDestPath,
+    //   serverConfig.remotePathFrontend,
+    //   serverConfig,
+    //   'Frontend build'
+    // );
 
-    logStepComplete(4, 'FTP upload completed');
+    // logStepComplete(4, 'FTP upload completed');
 
-    // Step 5: Trigger Remote Deployment
-    logStep(5, 'Triggering Remote Deployment');
+    // // Step 5: Trigger Remote Deployment
+    // logStep(5, 'Triggering Remote Deployment');
 
-    await triggerRemoteDeployment(serverConfig);
+    // await triggerRemoteDeployment(serverConfig);
 
-    logStepComplete(5, 'Remote deployment triggered');
+    // logStepComplete(5, 'Remote deployment triggered'); 
 
     // Step 6: Final Summary
     logStep(6, 'Deployment Complete');
